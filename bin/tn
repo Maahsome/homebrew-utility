@@ -4,7 +4,8 @@
 # example: tn bash
 TOOL=${1}
 if [[ -z ${TOOL} ]]; then
-  ls -1 ${MD_NOTEBOOKS_DIR}/Tools_Notes/
-else
-  mdcat "$MD_NOTEBOOKS_DIR/Tools_Notes/$1/"$(ls "$MD_NOTEBOOKS_DIR/Tools_Notes/$1" | fzf )
+  TOOL=`ls $MD_NOTEBOOKS_DIR/Tools_Notes | fzf`
 fi
+  
+echo $TOOL
+mdcat -p "$MD_NOTEBOOKS_DIR/Tools_Notes/$TOOL/"$(ls "$MD_NOTEBOOKS_DIR/Tools_Notes/$TOOL" | fzf )

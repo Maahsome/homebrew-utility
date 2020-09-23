@@ -1,8 +1,8 @@
 class Tn < Formula
-  desc "This is a collection general utility scripts for Maahsome resources."
+  desc "This is a collection of information on general utility scripts for Maahsome resources."
   homepage "https://github.com/maahsome/homebrew-utility"
   url "https://github.com/maahsome/homebrew-utility.git"
-  version "0.0.1"
+  version "0.0.2"
 
   depends_on "fzf"
   depends_on "mdcat"

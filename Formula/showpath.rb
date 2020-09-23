@@ -9,7 +9,7 @@ class Showpath < Formula
   end
 
   def caveats; <<~EOS
-    Non-homebrew dependecies: [sed]
+    Non-homebrew dependecies: [tr]
   EOS
   end
 end

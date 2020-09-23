@@ -1,0 +1,5 @@
+#!/bin/bash
+
+echo "Switch to a branch"
+branches=$(git branch | sed -E "/^\*.*$/d")
+git switch $(echo "$branches" | fzf)

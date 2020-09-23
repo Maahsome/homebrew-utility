@@ -1,4 +1,4 @@
-class Utility < Formula
+class Tn < Formula
   desc "This is a collection general utility scripts for Maahsome resources."
   homepage "https://github.com/maahsome/homebrew-utility"
   url "https://github.com/maahsome/homebrew-utility.git"

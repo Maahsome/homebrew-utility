@@ -22,6 +22,7 @@ def parse_line(line, is_separator_started, is_requests_section):
             sys.stdout.write(line)
         if not is_separator_started:
             sys.stdout.write("\n")
+            is_requests_section = False;
 
     # Identify if we are in the correct section
     if re.search(requests_re, line):

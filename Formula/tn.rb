@@ -2,7 +2,7 @@ class Tn < Formula
   desc "This is a collection of information on general utility scripts for Maahsome resources."
   homepage "https://github.com/maahsome/homebrew-utility"
   url "https://github.com/maahsome/homebrew-utility.git"
-  version "0.0.2"
+  version "0.0.3"
 
   depends_on "fzf"
   depends_on "mdcat"
@@ -18,6 +18,8 @@ class Tn < Formula
     'tn' alone will display the directories (which represent the cli tools)
     'tn <tool>' will bring up a list via fzf and allow you to select the 
                 markdown note you want to view.
+    
+    'tn -s' will bring up a list of "other" directories aside from Tools_Notes
   EOS
   end
 end

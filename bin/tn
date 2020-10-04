@@ -2,10 +2,71 @@
 # export MD_NOTEBOOKS_DIR in your bashrc or zshrc to the directory you cloned md-notebooks
 # Usage: tn {tool}
 # example: tn bash
-TOOL=${1}
-if [[ -z ${TOOL} ]]; then
-  TOOL=`ls $MD_NOTEBOOKS_DIR/Tools_Notes | fzf`
+
+show_help() {
+
+    echo "Tool Notes"
+    echo -e ""
+    echo "Usage: $(basename $BASH_SOURCE) [-s Section]"
+    echo -e ""
+
+    echo -e "Options:"
+    echo -e "\t-s, --section Defaults to Tools_Notes; Command_Line_Fun, Project_Thoughts, Tools_Notes, Walkthrough"
+    echo
+
+    echo -e ""
+    echo -e "Examples:"
+    echo -e "./tn gcloud               # list notes for gcloud tool in Tools_Notes"
+    echo -e "./tn -s Tools_Notes gh    # list notes for gh tool in Tools_Notes"
+    echo -e "./tn -s Walkthrough       # list notes in the Walkthrough section"
+    exit 1
+}
+
+
+PARAMS=""
+SECTION="Tools_Notes"
+while (( "$#" )); do
+  case "${1}" in
+    -s|--section)
+      SECTION="Choose"
+      shift 1
+      ;;
+    -h|--help)
+	  show_usage
+      exit 0
+      ;;
+    --) # end argument parsing
+      shift
+      break
+      ;;
+    -*|--*=) # unsupported flags
+      echo "Error: Unsupported flag $1" >&2
+	  show_usage
+      exit 1
+      ;;
+    *) # preserve positional arguments
+      PARAMS="$PARAMS $1"
+      shift
+      ;;
+  esac
+done
+# set positional arguments in their proper place
+eval set -- "$PARAMS"
+
+if [[ "${SECTION}" == "Tools_Notes" ]]; then
+    TOOL=${1}
+    if [[ -z ${TOOL} ]]; then
+        TOOL=$(ls $MD_NOTEBOOKS_DIR/Tools_Notes | fzf)
+    fi
+    echo $TOOL
+    mdcat -p "$MD_NOTEBOOKS_DIR/Tools_Notes/$TOOL/"$(ls "$MD_NOTEBOOKS_DIR/Tools_Notes/$TOOL" | grep -i md$ | fzf)
+else
+    TOOL=$(ls -1 -F $MD_NOTEBOOKS_DIR | grep -v Tools_Notes | grep /$ | fzf)
+    HAS_DIRS=$(ls -1 -F $MD_NOTEBOOKS_DIR/${TOOL} | grep /$ | wc -l | awk '{ print $1 }')
+    if [[ "${HAS_DIRS}" == "0" ]]; then
+        mdcat -p "$MD_NOTEBOOKS_DIR/${TOOL}/"$(ls "$MD_NOTEBOOKS_DIR/${TOOL}" | grep -i md$ | fzf )
+    else 
+	SUBTOOL=$(ls -1 -F $MD_NOTEBOOKS_DIR/${TOOL} | grep /$ | fzf)
+        mdcat -p "$MD_NOTEBOOKS_DIR/${TOOL}/${SUBTOOL}/"$(ls "$MD_NOTEBOOKS_DIR/${TOOL}/${SUBTOOL}" | grep -i md$ | fzf)
+    fi
 fi
-  
-echo $TOOL
-mdcat -p "$MD_NOTEBOOKS_DIR/Tools_Notes/$TOOL/"$(ls "$MD_NOTEBOOKS_DIR/Tools_Notes/$TOOL" | fzf )

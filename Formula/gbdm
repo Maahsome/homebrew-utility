@@ -1,0 +1,15 @@
+class Gbdm < Formula
+  include Language::Python::Virtualenv
+  desc "gbdm: git branch delete menu. Provides a checklist to mark branches for deletion"
+  homepage "https://github.com/maahsome/homebrew-utility"
+  url "https://github.com/maahsome/homebrew-utility.git"
+
+  resource "git-utils-dmaahs2017" do
+    url "https://files.pythonhosted.org/packages/08/53/655e674e0dc0f07c6d715d63b32e568b4960d87c48884af8ea5c1cac2184/git-utils-dmaahs2017-0.0.5.tar.gz"
+    sha256 "8335d0b0160bbfe4019c5102a74214fa864a8f2810b7351f95f380ac886d584a"
+  end
+
+  def install
+    virtualenv_install_with_resources
+  end
+end

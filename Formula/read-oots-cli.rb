@@ -4,7 +4,6 @@ class ReadOotsCli < Formula
   homepage "https://github.com/Maahsome/read-oots-cli"
   version "0.0.6"
   license "MIT"
-  bottle :unneeded
 
   if OS.mac?
     url "https://github.com/maahsome/read-oots-cli/releases/download/v0.0.6/read-oots-cli_0.0.6_Darwin_x86_64.tar.gz"
